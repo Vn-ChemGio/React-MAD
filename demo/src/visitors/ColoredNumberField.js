@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberField } from 'react-admin1';
+import { NumberField } from 'react-admin';
 
 const colored = WrappedComponent => {
     const Colored = props =>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Datagrid, DateField, TextField } from 'react-admin1';
+import { Datagrid, DateField, TextField } from 'react-admin';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import ProductReferenceField from '../products/ProductReferenceField';

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CustomerIcon from '@material-ui/icons/PersonAdd';
 import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom';
-import { translate } from 'react-admin1';
+import { translate } from 'react-admin';
 
 import CardIcon from './CardIcon';
 

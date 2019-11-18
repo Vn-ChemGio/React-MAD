@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import { withStyles } from '@material-ui/core/styles';
 
-import { translate } from 'react-admin1';
+import { translate } from 'react-admin';
 
 const styles = {
     listItem: {

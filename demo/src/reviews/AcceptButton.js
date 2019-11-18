@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
-import { translate, Mutation } from 'react-admin1';
+import { translate, Mutation } from 'react-admin';
 import compose from 'recompose/compose';
 
 const sideEffects = {

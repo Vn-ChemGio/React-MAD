@@ -11,7 +11,7 @@ import {
     ReferenceField,
     FunctionField,
     TextField,
-} from 'react-admin1';
+} from 'react-admin';
 
 import AvatarField from '../visitors/AvatarField';
 

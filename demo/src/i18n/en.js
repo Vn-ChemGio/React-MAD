@@ -22,10 +22,10 @@ export default {
                     'by %{customer_name}, one item |||| by %{customer_name}, %{nb_items} items',
             },
             welcome: {
-                title: 'Welcome to react-admin1 demo',
+                title: 'Welcome to react-admin demo',
                 subtitle:
                     "This is the admin of an imaginary poster shop. Feel free to explore and modify the data - it's local to your computer, and will reset each time you reload.",
-                aor_button: 'react-admin1 site',
+                aor_button: 'react-admin site',
                 demo_button: 'Source for this demo',
             },
         },
