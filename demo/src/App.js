@@ -11,8 +11,8 @@ import { LayoutProvider } from "./contexts/LayoutContext";
 import authProvider from './authProvider';
 import sagas from './sagas';
 import themeReducer from './themeReducer';
-import { Layout } from './layout';
-import Login from './pages/login/Login-old';
+import { Login, Layout } from './layout';
+import Login2 from './pages/login/Login-old';
 import { Dashboard } from './dashboard';
 import customRoutes from './routes';
 import englishMessages from './i18n/en';
@@ -69,8 +69,7 @@ class App extends Component {
         }
 
         return (
-            <LayoutProvider>
-                <ThemeProvider theme={Themes.default}>
+
                 <Admin
                     title=""
                     dataProvider={dataProvider}
@@ -95,8 +94,7 @@ class App extends Component {
                     <Resource name="categories" {...categories} />
                     <Resource name="reviews" {...reviews} />
                 </Admin>
-                </ThemeProvider>
-            </LayoutProvider>
+
         );
     }
 }
