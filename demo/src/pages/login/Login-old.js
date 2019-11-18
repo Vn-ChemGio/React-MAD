@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
 import Avatar from '@material-ui/core/Avatar';
-/*import Button from '@material-ui/core/Button';*/
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-/*import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';*/
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 import {
     MuiThemeProvider,
     createMuiTheme,
@@ -20,34 +20,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Notification, translate, userLogin } from 'react-admin';
 
 import { lightTheme } from '../../layout/themes';
-/*====================*/
-import {
-    Grid,
-    CircularProgress,
-    Typography,
-    Button,
-    Tabs,
-    Tab,
-    TextField,
-    Fade,
-} from "@material-ui/core";
-
-import classnames from "classnames";
-
-// styles
 import useStyles from "./styles";
-
-// logo
-import logo from "./logo.svg";
-import google from "../../images/google.svg";
-
-
-
-
-
-
-
-
 
 
 const styles = theme => ({
@@ -89,6 +62,8 @@ const styles = theme => ({
         padding: '0 1em 1em 1em',
     },
 });
+
+const  classes = useStyles();
 
 // see http://redux-form.com/6.4.3/examples/material-ui/
 const renderInput = ({

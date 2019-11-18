@@ -3,6 +3,11 @@ import { Admin, Resource } from 'react-admin';
 
 import './App.css';
 
+import { LayoutProvider } from "./contexts/LayoutContext";
+
+
+
+
 import authProvider from './authProvider';
 import sagas from './sagas';
 import themeReducer from './themeReducer';
@@ -21,6 +26,8 @@ import reviews from './reviews';
 
 import dataProviderFactory from './dataProvider';
 import fakeServerFactory from './fakeServer';
+import Themes from "./themes";
+import {ThemeProvider} from "@material-ui/styles";
 
 const i18nProvider = locale => {
     if (locale === 'fr') {
@@ -62,30 +69,34 @@ class App extends Component {
         }
 
         return (
-            <Admin
-                title=""
-                dataProvider={dataProvider}
-                customReducers={{ theme: themeReducer }}
-                customSagas={sagas}
-                customRoutes={customRoutes}
-                authProvider={authProvider}
-                dashboard={Dashboard}
-                loginPage={Login}
-                appLayout={Layout}
-                locale="en"
-                i18nProvider={i18nProvider}
-            >
-                <Resource name="customers" {...visitors} />
-                <Resource
-                    name="commands"
-                    {...orders}
-                    options={{ label: 'Orders' }}
-                />
-                <Resource name="invoices" {...invoices} />
-                <Resource name="products" {...products} />
-                <Resource name="categories" {...categories} />
-                <Resource name="reviews" {...reviews} />
-            </Admin>
+            <LayoutProvider>
+                <ThemeProvider theme={Themes.default}>
+                <Admin
+                    title=""
+                    dataProvider={dataProvider}
+                    customReducers={{ theme: themeReducer }}
+                    customSagas={sagas}
+                    customRoutes={customRoutes}
+                    authProvider={authProvider}
+                    dashboard={Dashboard}
+                    loginPage={Login}
+                    appLayout={Layout}
+                    locale="en"
+                    i18nProvider={i18nProvider}
+                >
+                    <Resource name="customers" {...visitors} />
+                    <Resource
+                        name="commands"
+                        {...orders}
+                        options={{ label: 'Orders' }}
+                    />
+                    <Resource name="invoices" {...invoices} />
+                    <Resource name="products" {...products} />
+                    <Resource name="categories" {...categories} />
+                    <Resource name="reviews" {...reviews} />
+                </Admin>
+                </ThemeProvider>
+            </LayoutProvider>
         );
     }
 }
