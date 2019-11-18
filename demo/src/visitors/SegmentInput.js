@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, SelectInput } from 'react-admin';
+import { translate, SelectInput } from 'react-admin1';
 import withStyles from '@material-ui/core/styles/withStyles';
 import compose from 'recompose/compose';
 

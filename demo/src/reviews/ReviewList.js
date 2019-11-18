@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import compose from 'recompose/compose';
 import classnames from 'classnames';
-import { BulkDeleteButton, List, Responsive } from 'react-admin';
+import { BulkDeleteButton, List, Responsive } from 'react-admin1';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Route } from 'react-router';
