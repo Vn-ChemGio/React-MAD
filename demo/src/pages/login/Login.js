@@ -1,255 +1,386 @@
-import React, { useState } from "react";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {propTypes, reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
+import compose from 'recompose/compose';
+
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 import {
-  Grid,
-  CircularProgress,
-  Typography,
-  Button,
-  Tabs,
-  Tab,
-  TextField,
-  Fade,
-} from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-import classnames from "classnames";
+    MuiThemeProvider,
+    createMuiTheme,
+    withStyles,
+} from '@material-ui/core/styles';
 
-// styles
-import useStyles from "./styles";
+import {Notification, translate, userLogin} from 'react-admin';
 
-// logo
+import {lightTheme} from '../../layout/themes';
 import logo from "./logo.svg";
+import {Fade, Grid, Tab, Tabs, Typography} from "@material-ui/core";
 import google from "../../images/google.svg";
 
-// context
-import { useUserDispatch, loginUser } from "../../context/UserContext";
+const classes = theme => {
+    console.log(theme);
+    return ({
+        main: {
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            background: 'url(https://source.unsplash.com/random/1600x900)',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+        },
+        card: {
+            minWidth: 300,
+            marginTop: '6em',
+        },
+        avatar: {
+            margin: '1em',
+            display: 'flex',
+            justifyContent: 'center',
+        },
+        icon: {
+            backgroundColor: theme.palette.secondary.main,
+        },
+        hint: {
+            marginTop: '1em',
+            display: 'flex',
+            justifyContent: 'center',
+            color: theme.palette.grey[500],
+        },
+        form: {
+            width: 320,
+            padding: '0 1em 1em 1em',
+        },
+        input: {
+            marginTop: '1em',
+        },
+        actions: {
+            padding: '0 1em 1em 1em',
+        },
 
-function Login(props) {
-  var classes = useStyles();
+        container: {
+            height: "100vh",
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+        },
+        logotypeContainer: {
+            backgroundColor: theme.palette.primary.main,
+            width: "60%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            [theme.breakpoints.down("md")]: {
+                width: "50%",
+            },
+            [theme.breakpoints.down("md")]: {
+                display: "none",
+            },
+        },
+        logotypeImage: {
+            width: 165,
+            /*
+                    marginBottom: theme.spacing(4),
+            */
+        },
+        logotypeText: {
+            color: "white",
+            fontWeight: 500,
+            fontSize: 84,
+            /*[theme.breakpoints.down("md")]: {
+                fontSize: 48,
+            },*/
+        },
+        formContainer: {
+            width: "40%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            /*[theme.breakpoints.down("md")]: {
+                width: "50%",
+            },*/
+        },
+        tab: {
+            fontWeight: 400,
+            fontSize: 18,
+        },
+        greeting: {
+            fontWeight: 500,
+            textAlign: "center",
+            /*marginTop: theme.spacing(4),*/
+        },
+        subGreeting: {
+            fontWeight: 500,
+            textAlign: "center",
+            /* marginTop: theme.spacing(2),*/
+        },
+        googleButton: {
+            /*marginTop: theme.spacing(6),*/
+            /* boxShadow: theme.customShadows.widget,*/
+            backgroundColor: "white",
+            width: "100%",
+            textTransform: "none",
+        },
+        googleButtonCreating: {
+            marginTop: 0,
+        },
+        googleIcon: {
+            width: 30,
+            /*marginRight: theme.spacing(2),*/
+        },
+        creatingButtonContainer: {
+            /* marginTop: theme.spacing(2.5),*/
+            height: 46,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        createAccountButton: {
+            height: 46,
+            textTransform: "none",
+        },
+        formDividerContainer: {
+            /* marginTop: theme.spacing(4),*/
+            /* marginBottom: theme.spacing(4),*/
+            display: "flex",
+            alignItems: "center",
+        },
+        formDividerWord: {
+            /*paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),*/
+        },
+        formDivider: {
+            flexGrow: 1,
+            height: 1,
+            /* backgroundColor: theme.palette.text.hint + "40",*/
+        },
+        errorMessage: {
+            textAlign: "center",
+        },
+        textFieldUnderline: {
+            "&:before": {
+                /*borderBottomColor: theme.palette.primary.light,*/
+            },
+            "&:after": {
+                /*borderBottomColor: theme.palette.primary.main,*/
+            },
+            "&:hover:before": {
+                /*borderBottomColor: `${theme.palette.primary.light} !important`,*/
+            },
+        },
+        textField: {
+            /*borderBottomColor: theme.palette.background.light,*/
+        },
+        formButtons: {
+            width: "100%",
+            /*marginTop: theme.spacing(4),*/
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
 
-  // global
-  var userDispatch = useUserDispatch();
+        },
+        forgetButton: {
+            textTransform: "none",
+            fontWeight: 400,
+        },
+        loginLoader: {
+            /*marginLeft: theme.spacing(4),*/
+        },
+        copyright: {
+            /*marginTop: theme.spacing(4),*/
+            whiteSpace: "nowrap",
+            /* [theme.breakpoints.up("md")]: {
+                 position: "absolute",
+                 /!*bottom: theme.spacing(2),*!/
+             },*/
+        },
+        /* form: {
+             width: 320,
+             padding: '0 1em 1em 1em', // TODO: remove line and below
+         },*/
 
-  // local
-  var [isLoading, setIsLoading] = useState(false);
-  var [error, setError] = useState(null);
-  var [activeTabId, setActiveTabId] = useState(0);
-  var [nameValue, setNameValue] = useState("");
-  var [loginValue, setLoginValue] = useState("");
-  var [passwordValue, setPasswordValue] = useState("");
+    })
+};
 
-  return (
-    <Grid container className={classes.container}>
-      <div className={classes.logotypeContainer}>
-        <img src={logo} alt="logo" className={classes.logotypeImage} />
-        <Typography className={classes.logotypeText}>Material Admin</Typography>
-      </div>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
-          <Tabs
-            value={activeTabId}
-            onChange={(e, id) => setActiveTabId(id)}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="Login" classes={{ root: classes.tab }} />
-            <Tab label="New User" classes={{ root: classes.tab }} />
-          </Tabs>
-          {activeTabId === 0 && (
-            <React.Fragment>
-              <Typography variant="h1" className={classes.greeting}>
-                Good Morning, User
-              </Typography>
-              <Button size="large" className={classes.googleButton}>
-                <img src={google} alt="google" className={classes.googleIcon} />
-                &nbsp;Sign in with Google
-              </Button>
-              <div className={classes.formDividerContainer}>
-                <div className={classes.formDivider} />
-                <Typography className={classes.formDividerWord}>or</Typography>
-                <div className={classes.formDivider} />
-              </div>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
-                </Typography>
-              </Fade>
-              <TextField
-                id="email"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <div className={classes.formButtons}>
-                {isLoading ? (
-                  <CircularProgress size={26} className={classes.loginLoader} />
-                ) : (
-                  <Button
-                    disabled={
-                      loginValue.length === 0 || passwordValue.length === 0
-                    }
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                  >
-                    Login
-                  </Button>
-                )}
-                <Button
-                  color="primary"
-                  size="large"
-                  className={classes.forgetButton}
-                >
-                  Forget Password
-                </Button>
-              </div>
-            </React.Fragment>
-          )}
-          {activeTabId === 1 && (
-            <React.Fragment>
-              <Typography variant="h1" className={classes.greeting}>
-                Welcome!
-              </Typography>
-              <Typography variant="h2" className={classes.subGreeting}>
-                Create your account
-              </Typography>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
-                </Typography>
-              </Fade>
-              <TextField
-                id="name"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={nameValue}
-                onChange={e => setNameValue(e.target.value)}
-                margin="normal"
-                placeholder="Full Name"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="email"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <div className={classes.creatingButtonContainer}>
-                {isLoading ? (
-                  <CircularProgress size={26} />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    disabled={
-                      loginValue.length === 0 ||
-                      passwordValue.length === 0 ||
-                      nameValue.length === 0
-                    }
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    className={classes.createAccountButton}
-                  >
-                    Create your account
-                  </Button>
-                )}
-              </div>
-              <div className={classes.formDividerContainer}>
-                <div className={classes.formDivider} />
-                <Typography className={classes.formDividerWord}>or</Typography>
-                <div className={classes.formDivider} />
-              </div>
-              <Button
-                size="large"
-                className={classnames(
-                  classes.googleButton,
-                  classes.googleButtonCreating,
-                )}
-              >
-                <img src={google} alt="google" className={classes.googleIcon} />
-                &nbsp;Sign in with Google
-              </Button>
-            </React.Fragment>
-          )}
-        </div>
-        <Typography color="primary" className={classes.copyright}>
-          © 2014-2019 Flatlogic, LLC. All rights reserved.
-        </Typography>
-      </div>
-    </Grid>
-  );
+// see http://redux-form.com/6.4.3/examples/material-ui/
+const renderInput = ({
+                         meta: {touched, error} = {},
+                         input: {...inputProps},
+                         ...props
+                     }) => (
+    <TextField
+        error={!!(touched && error)}
+        helperText={touched && error}
+        {...inputProps}
+        {...props}
+        fullWidth
+    />
+);
+
+class Login extends Component {
+    login = auth =>
+        this.props.userLogin(
+            auth,
+            this.props.location.state
+                ? this.props.location.state.nextPathname
+                : '/'
+        );
+
+    render() {
+        const {classes, handleSubmit, isLoading, translate} = this.props;
+        return (
+            <Grid container className={classes.container}>
+                <div className={classes.logotypeContainer}>
+                    <img src={logo} alt="logo" className={classes.logotypeImage}/>
+                    <Typography className={classes.logotypeText}>Material Admin</Typography>
+                </div>
+                <div className={classes.formContainer}>
+                    <div className={classes.form}>
+                        <React.Fragment>
+                            <Typography variant="h1" className={classes.greeting}>
+                                Good Morning, User
+                            </Typography>
+                            {/* <Button size="large" className={classes.googleButton}>
+                  <img src={google} alt="google" className={classes.googleIcon} />
+                  &nbsp;Sign in with Google
+                </Button>*/}
+                            <div className={classes.formDividerContainer}>
+                                <div className={classes.formDivider}/>
+                                <Typography className={classes.formDividerWord}>Please Login For Using System <img
+                                    src={google} alt="google" className={classes.googleIcon}/> </Typography>
+
+                                <div className={classes.formDivider}/>
+                            </div>
+                            <Fade>
+                                <Typography color="secondary" className={classes.errorMessage}>
+                                    Something is wrong with your login or password :(
+                                </Typography>
+                            </Fade>
+                            <form onSubmit={handleSubmit(this.login)}>
+
+                                <Field
+                                    autoFocus
+                                    name="username"
+                                    component={renderInput}
+                                    label={translate('ra.auth.username')}
+                                    disabled={isLoading}
+                                    InputProps={{
+                                        classes: {
+                                            underline: classes.textFieldUnderline,
+                                            input: classes.textField,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    placeholder="Email Adress"
+                                    fullWidth
+                                />
+
+                                <Field
+                                    name="password"
+                                    component={renderInput}
+                                    label={translate('ra.auth.password')}
+                                    type="password"
+                                    disabled={isLoading}
+                                    InputProps={{
+                                        classes: {
+                                            underline: classes.textFieldUnderline,
+                                            input: classes.textField,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    placeholder="Password"
+
+                                    fullWidth
+                                />
+                                <div className={classes.formButtons}>
+
+                                    <Button
+                                        type="submit"
+                                        variant="raised"
+                                        color="primary"
+                                        size="large"
+                                        disabled={isLoading}
+                                        className={classes.button}
+                                    >
+                                        Login
+                                    </Button>
+                                    {isLoading && (
+                                        <CircularProgress size={25} thickness={2}/>
+                                    )}
+
+                                </div>
+                            </form>
+
+
+                        </React.Fragment>
+
+                    </div>
+                    <Typography color="primary" className={classes.copyright}>
+                        © 2019-2020 Double Studio, LLC. All rights reserved.
+                    </Typography>
+                </div>
+                <Notification/>
+            </Grid>
+        );
+    }
 }
 
-export default withRouter(Login);
+Login.propTypes = {
+    ...propTypes,
+    authProvider: PropTypes.func,
+    classes: PropTypes.object,
+    previousRoute: PropTypes.string,
+    translate: PropTypes.func.isRequired,
+    userLogin: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({isLoading: state.admin.loading > 0});
+
+const enhance = compose(
+    translate,
+    reduxForm({
+        form: 'signIn',
+        validate: (values, props) => {
+            const errors = {};
+            const {translate} = props;
+            if (!values.username) {
+                errors.username = translate('ra.validation.required');
+            }
+            if (!values.password) {
+                errors.password = translate('ra.validation.required');
+            }
+            return errors;
+        },
+    }),
+    connect(
+        mapStateToProps,
+        {userLogin}
+    ),
+    withStyles(classes)
+);
+
+const EnhancedLogin = enhance(Login);
+
+// We need to put the MuiThemeProvider decoration in another component
+// Because otherwise the withStyles() HOC used in EnhancedLogin won't get
+// the right theme
+const LoginWithTheme = props => (
+    <MuiThemeProvider theme={createMuiTheme(lightTheme)}>
+        <EnhancedLogin {...props} />
+    </MuiThemeProvider>
+);
+
+export default LoginWithTheme;

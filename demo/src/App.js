@@ -3,40 +3,16 @@ import { Admin, Resource } from 'react-admin';
 
 import './App.css';
 
-import { LayoutProvider } from "./contexts/LayoutContext";
-
-
-
-
 import authProvider from './authProvider';
-import sagas from './sagas';
-import themeReducer from './themeReducer';
 import { Login, Layout } from './layout';
-import Login2 from './pages/login/Login-old';
 import { Dashboard } from './dashboard';
-import customRoutes from './routes';
-import englishMessages from './i18n/en';
 
-import visitors from './visitors';
-import orders from './orders';
-import products from './products';
-import invoices from './invoices';
-import categories from './categories';
-import reviews from './reviews';
 
 import dataProviderFactory from './dataProvider';
 import fakeServerFactory from './fakeServer';
-import Themes from "./themes";
-import {ThemeProvider} from "@material-ui/styles";
+import visitors from "../src/visitors";
 
-const i18nProvider = locale => {
-    if (locale === 'fr') {
-        return import('./i18n/fr').then(messages => messages.default);
-    }
 
-    // Always fallback on english
-    return englishMessages;
-};
 
 class App extends Component {
     state = { dataProvider: null };
@@ -70,31 +46,16 @@ class App extends Component {
 
         return (
 
-                <Admin
-                    title=""
-                    dataProvider={dataProvider}
-                    customReducers={{ theme: themeReducer }}
-                    customSagas={sagas}
-                    customRoutes={customRoutes}
-                    authProvider={authProvider}
-                    dashboard={Dashboard}
-                    loginPage={Login}
-                    appLayout={Layout}
-                    locale="en"
-                    i18nProvider={i18nProvider}
-                >
-                    <Resource name="customers" {...visitors} />
-                    <Resource
-                        name="commands"
-                        {...orders}
-                        options={{ label: 'Orders' }}
-                    />
-                    <Resource name="invoices" {...invoices} />
-                    <Resource name="products" {...products} />
-                    <Resource name="categories" {...categories} />
-                    <Resource name="reviews" {...reviews} />
-                </Admin>
+            <Admin
+                title=""
+                dataProvider={dataProvider}
+                authProvider={authProvider}
+                dashboard={Dashboard}
+                loginPage={Login}
+            >
 
+                <Resource name="customers" {...visitors} />
+            </Admin>
         );
     }
 }
