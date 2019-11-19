@@ -7,6 +7,7 @@ function userReducer(state, action) {
   switch (action.type) {
     case "LOGIN_SUCCESS":
       return { ...state, isAuthenticated: true };
+    case "LOGIN_FAILURE":
     case "SIGN_OUT_SUCCESS":
       return { ...state, isAuthenticated: false };
     default: {
@@ -55,9 +56,9 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 
   if (!!login && !!password) {
     setTimeout(() => {
-      localStorage.setItem("id_token", "1");
-      dispatch({ type: "LOGIN_SUCCESS" });
-      setError(null);
+      //TODO: this make error because async
+      dispatch({ type: "LOGIN_FAILURE" });
+      setError(true);
       setIsLoading(false);
 
       history.push("/app/dashboard");

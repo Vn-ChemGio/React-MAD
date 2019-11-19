@@ -29,7 +29,7 @@ function Login(props) {
   var userDispatch = useUserDispatch();
 
   // local
-  var [isLoading, setIsLoading] = useState(false);
+  var [isLoading, setIsLoading] = useState(false); // Hook state & function change state; function is arrow function
   var [error, setError] = useState(null);
   var [activeTabId, setActiveTabId] = useState(0);
   var [nameValue, setNameValue] = useState("");
@@ -73,66 +73,27 @@ function Login(props) {
                   Something is wrong with your login or password :(
                 </Typography>
               </Fade>
-              <TextField
-                id="email"
-                InputProps={{
+              <TextField id="email" InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
                     input: classes.textField,
                   },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
+                }} value={loginValue} onChange={e => setLoginValue(e.target.value)} margin="normal" placeholder="Email Adress" type="email" fullWidth
               />
-              <TextField
-                id="password"
-                InputProps={{
+              <TextField id="password" InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
                     input: classes.textField,
                   },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
+                }} value={passwordValue} onChange={e => setPasswordValue(e.target.value)} margin="normal" placeholder="Password" type="password" fullWidth
               />
               <div className={classes.formButtons}>
-                {isLoading ? (
-                  <CircularProgress size={26} className={classes.loginLoader} />
-                ) : (
-                  <Button
-                    disabled={
-                      loginValue.length === 0 || passwordValue.length === 0
-                    }
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                  >
+                {isLoading ? (<CircularProgress size={26} className={classes.loginLoader} />) : (
+                  <Button disabled={loginValue.length === 0 || passwordValue.length === 0} onClick={() => loginUser(userDispatch, loginValue, passwordValue, props.history, setIsLoading, setError,)} variant="contained" color="primary" size="large">
                     Login
                   </Button>
                 )}
-                <Button
-                  color="primary"
-                  size="large"
-                  className={classes.forgetButton}
-                >
+                <Button color="primary" size="large" className={classes.forgetButton}>
                   Forget Password
                 </Button>
               </div>
@@ -151,76 +112,30 @@ function Login(props) {
                   Something is wrong with your login or password :(
                 </Typography>
               </Fade>
-              <TextField
-                id="name"
-                InputProps={{
+              <TextField id="name" InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
                     input: classes.textField,
                   },
-                }}
-                value={nameValue}
-                onChange={e => setNameValue(e.target.value)}
-                margin="normal"
-                placeholder="Full Name"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="email"
-                InputProps={{
+              }} value={nameValue} onChange={e => setNameValue(e.target.value)} margin="normal" placeholder="Full Name" type="email" fullWidth/>
+              <TextField id="email" InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
                     input: classes.textField,
                   },
-                }}
-                value={loginValue}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
+              }} value={loginValue} onChange={e => setLoginValue(e.target.value)} margin="normal" placeholder="Email Adress" type="email" fullWidth/>
+              <TextField id="password" InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
                     input: classes.textField,
                   },
-                }}
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <div className={classes.creatingButtonContainer}>
-                {isLoading ? (
-                  <CircularProgress size={26} />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                    }
-                    disabled={
+              }} value={passwordValue} onChange={e => setPasswordValue(e.target.value)} margin="normal" placeholder="Password" type="password" fullWidth/>
+              <div className={classes.creatingButtonContainer}>{isLoading ? (<CircularProgress size={26} />) : (
+                  <Button onClick={() => loginUser(userDispatch, loginValue, passwordValue, props.history, setIsLoading, setError,)} disabled={
                       loginValue.length === 0 ||
                       passwordValue.length === 0 ||
                       nameValue.length === 0
-                    }
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    className={classes.createAccountButton}
+                    } size="large" variant="contained" color="primary" fullWidth className={classes.createAccountButton}
                   >
                     Create your account
                   </Button>
@@ -231,13 +146,7 @@ function Login(props) {
                 <Typography className={classes.formDividerWord}>or</Typography>
                 <div className={classes.formDivider} />
               </div>
-              <Button
-                size="large"
-                className={classnames(
-                  classes.googleButton,
-                  classes.googleButtonCreating,
-                )}
-              >
+              <Button size="large" className={classnames(classes.googleButton, classes.googleButtonCreating,)}>
                 <img src={google} alt="google" className={classes.googleIcon} />
                 &nbsp;Sign in with Google
               </Button>
