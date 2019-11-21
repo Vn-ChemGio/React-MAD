@@ -4,10 +4,11 @@ export default {
     login: (props) => {
         return axios.post('/login', {
             ...props
-        }).then(function ({userId, role, token}) {
+        }).then(function ({username, userId, role, token}) {
             localStorage.setItem('userId', userId);
             localStorage.setItem('role', role);
             localStorage.setItem('token', token);
+            localStorage.setItem('username', username);
 
             return Promise.resolve()
         }).catch(function (error) {
