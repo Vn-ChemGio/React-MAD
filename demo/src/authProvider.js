@@ -1,8 +1,20 @@
+import axios from './common/axios'
+
 export default {
-    login: ({ username }) => {
-        localStorage.setItem('username', username);
-        // accept all username/password combinations
-        return Promise.resolve();
+    login: (props) => {
+        return axios.post('/login', {
+            ...props
+        }).then(function ({userId, role, token}) {
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('role', role);
+            localStorage.setItem('token', token);
+
+            return Promise.resolve()
+        }).catch(function (error) {
+            console.log(error.response);
+            return Promise.reject(error.response.data.msg)
+        });
+
     },
     logout: () => {
         localStorage.removeItem('username');
