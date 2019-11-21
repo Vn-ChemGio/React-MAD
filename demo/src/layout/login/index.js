@@ -2,15 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Field, Form} from 'react-final-form';
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
+import {Button, CircularProgress, TextField} from "@material-ui/core";
+import {createMuiTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
-import LockIcon from '@material-ui/icons/Lock';
 
 import {Notification, useTranslate, useLogin, useNotify} from 'react-admin';
 
@@ -19,7 +13,7 @@ import useStyles from './styles';
 
 import logo from "./logo.svg";
 import google from "../../images/google.svg";
-import {Fade, Grid, Tab, Tabs, Typography} from "@material-ui/core";
+import {Grid, Tab, Tabs, Typography} from "@material-ui/core";
 
 const renderInput = ({
                          meta: {touched, error} = {},
@@ -41,6 +35,11 @@ const Login = ({location}) => {
     const classes = useStyles();
     const notify = useNotify();
     const login = useLogin();
+    var [activeTabId, setActiveTabId] = useState(0);
+    var [nameValue, setNameValue] = useState("");
+
+    var [passwordValue, setPasswordValue] = useState("");
+
 
     const handleSubmit = auth => {
         setLoading(true);
@@ -70,10 +69,7 @@ const Login = ({location}) => {
         return errors;
     };
 
-    var [activeTabId, setActiveTabId] = useState(0);
-    var [nameValue, setNameValue] = useState("");
 
-    var [passwordValue, setPasswordValue] = useState("");
 
     return (
         <Grid container className={classes.container}>

@@ -11,8 +11,8 @@ export default {
 
             return Promise.resolve()
         }).catch(function (error) {
-            console.log(error.response);
-            return Promise.reject(error.response.data.msg)
+            return Promise.reject()
+           /* return Promise.reject(error.response.data.msg)*/
         });
 
     },
