@@ -36,9 +36,7 @@ const Login = ({location}) => {
     const notify = useNotify();
     const login = useLogin();
     var [activeTabId, setActiveTabId] = useState(0);
-    var [nameValue, setNameValue] = useState("");
 
-    var [passwordValue, setPasswordValue] = useState("");
 
 
     const handleSubmit = auth => {
@@ -87,7 +85,7 @@ const Login = ({location}) => {
                         centered
                     >
                         <Tab label="Login" classes={{root: classes.tab}}/>
-                        <Tab label="New User" classes={{root: classes.tab}}/>
+                        {/*<Tab label="New User" classes={{root: classes.tab}}/>*/}
                     </Tabs>
                     {activeTabId === 0 && (
                         <React.Fragment>
@@ -121,7 +119,6 @@ const Login = ({location}) => {
                                                label={translate('ra.auth.username')}
                                                disabled={isLoading}
                                                margin="normal" placeholder="Username" type="text" fullWidth
-                                               value={nameValue} onKeyUp={e => setNameValue(e.target.value)}
                                         />
                                         <Field InputProps={{
                                             classes: {
@@ -135,7 +132,6 @@ const Login = ({location}) => {
                                                label={translate('ra.auth.password')}
                                                disabled={isLoading}
                                                margin="normal" placeholder="Password" type="password" fullWidth
-                                               value={passwordValue} onKeyUp={e => setPasswordValue(e.target.value)}
                                         />
 
 
@@ -143,7 +139,7 @@ const Login = ({location}) => {
                                             {isLoading ? (
                                                 <CircularProgress size={26} className={classes.loginLoader}/>) : (
                                                 <Button
-                                                    disabled={nameValue.length === 0 || passwordValue.length === 0 || isLoading}
+                                                    disabled={isLoading}
                                                     variant="contained" type="submit" color="primary" size="large">
                                                     {translate('ra.auth.sign_in')}
                                                 </Button>
