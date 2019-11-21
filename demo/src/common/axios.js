@@ -9,6 +9,7 @@ instance.defaults.headers.common['Content-Type'] = 'application/json';
 
 // Also add/ configure interceptors && all the other cool stuff
 
-
+if(localStorage.getItem('token'))
+    instance.defaults.headers.common['tokenKey'] = localStorage.getItem('token');
 
 export default instance;

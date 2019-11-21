@@ -2,21 +2,10 @@ import React, { forwardRef } from 'react';
 import { AppBar, UserMenu, MenuItemLink, useTranslate } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { makeStyles } from '@material-ui/core/styles';
 
-import Logo from './Logo';
+import Logo from '../../Logo';
 
-const useStyles = makeStyles({
-    title: {
-        flex: 1,
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-    },
-    spacer: {
-        flex: 1,
-    },
-});
+import useStyles from './styles'
 
 const ConfigurationMenu = forwardRef((props, ref) => {
     const translate = useTranslate();
@@ -40,16 +29,20 @@ const CustomUserMenu = props => (
 const CustomAppBar = props => {
     const classes = useStyles();
     return (
-        <AppBar {...props} userMenu={<CustomUserMenu />}>
+        <AppBar {...props} userMenu={<CustomUserMenu />} position="fixed" className={classes.appBar}>
             <Typography
                 variant="h6"
                 color="inherit"
-                className={classes.title}
+                weight="medium" className={classes.logotype}
                 id="react-admin-title"
             />
             <Logo />
+            <div className={classes.grow} />
+
             <span className={classes.spacer} />
         </AppBar>
+
+
     );
 };
 

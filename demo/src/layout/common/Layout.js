@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Layout, Sidebar } from 'react-admin';
-import AppBar from './AppBar';
-import Menu from './Menu';
-import { darkTheme, lightTheme } from './themes';
+import AppBar from './AppBar/index';
+import Menu from '../Menu';
+import { darkTheme, lightTheme } from '../themes';
 
 const CustomSidebar = props => <Sidebar {...props} size={200} />;
 
