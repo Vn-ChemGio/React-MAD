@@ -11,6 +11,8 @@ export default props => {
     const theme = useSelector(state =>
         state.theme === 'dark' ? darkTheme : lightTheme
     );
+
+    console.log(props)
     return (
         <Layout
             {...props}
