@@ -32,7 +32,7 @@ const Menu = ({ onMenuClick, dense, logout }) => {
     return (
         <div>
             {' '}
-            <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} />
+            <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open}   dense={dense}/>
             <SubMenu
                 handleToggle={() => handleToggle('menuSales')}
                 isOpen={state.menuSales}

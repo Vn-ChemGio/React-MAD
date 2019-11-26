@@ -32,18 +32,15 @@ const CustomAppBar = props => {
     const classes = useStyles();
     return (
         <AppBar {...props} userMenu={<CustomUserMenu/>} position="fixed" className={classes.appBar}>
-
-                <Typography
-                    variant="h6"
-                    color="inherit"
-                    className={classes.title}   weight="medium"
-                    id="react-admin-title"
-                />
-                <Logo/>
-                <span className={classes.spacer}/>
-
+            <Typography
+                variant="h6"
+                color="inherit"
+                className={classes.title} weight="medium"
+                id="react-admin-title"
+            />
+            <Logo/>
+            <span className={classes.spacer}/>
         </AppBar>
-
 
 
     );

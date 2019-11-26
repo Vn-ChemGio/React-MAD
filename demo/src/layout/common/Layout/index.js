@@ -5,21 +5,24 @@ import AppBar from '../AppBar';
 import Menu from '../../Menu';
 import { darkTheme, lightTheme } from '../../themes';
 
-const CustomSidebar = props => <Sidebar {...props} size={200} />;
+const CustomSidebar = props => <Sidebar {...props}/>;
 
+const CustomMenu = props => <Menu {...props} dense={false} />;
 export default props => {
     const theme = useSelector(state =>
         state.theme === 'dark' ? darkTheme : lightTheme
     );
 
-    console.log(props)
     return (
         <Layout
             {...props}
             appBar={AppBar}
             sidebar={CustomSidebar}
-            menu={Menu}
+            menu={CustomMenu}
             theme={theme}
+            className={theme.root}
+
         />
+
     );
 };
