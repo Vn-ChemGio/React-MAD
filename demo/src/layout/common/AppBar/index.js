@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { AppBar, UserMenu, MenuItemLink, useTranslate } from 'react-admin';
+import React, {forwardRef} from 'react';
+import {AppBar, UserMenu, MenuItemLink, useTranslate} from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -16,7 +16,7 @@ const ConfigurationMenu = forwardRef((props, ref) => {
             ref={ref}
             to="/configuration"
             primaryText={translate('pos.configuration')}
-            leftIcon={<SettingsIcon />}
+            leftIcon={<SettingsIcon/>}
             onClick={props.onClick}
         />
     );
@@ -24,27 +24,28 @@ const ConfigurationMenu = forwardRef((props, ref) => {
 
 const CustomUserMenu = props => (
     <UserMenu {...props}>
-        <ConfigurationMenu />
+        <ConfigurationMenu/>
     </UserMenu>
 );
 
 const CustomAppBar = props => {
     const classes = useStyles();
     return (
-        <AppBar {...props} userMenu={<CustomUserMenu />} position="fixed">
-            <Toolbar  className={classes.appBar}>
+        <AppBar {...props} userMenu={<CustomUserMenu/>} position="fixed" className={classes.appBar}>
+
                 <Typography
                     variant="h6"
                     color="inherit"
-                    weight="medium" className={classes.logotype}
+                    className={classes.title}   weight="medium"
                     id="react-admin-title"
                 />
-                <Logo />
-                <div className={classes.grow} />
+                <Logo/>
+                <span className={classes.spacer}/>
 
-                <span className={classes.spacer} />
-            </Toolbar>
         </AppBar>
+
+
+
     );
 };
 

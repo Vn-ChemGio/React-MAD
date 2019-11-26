@@ -24,15 +24,18 @@ export const lightTheme = makeStyles(theme => ( {
                     backgroundColor: 'rgba(0, 0, 0,nc 0.04)',
                 },
             },
+
         },
+        Layout:{
+            root: {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                '&$disabled': {
+                    backgroundColor: 'rgba(0, 0, 0,nc 0.04)',
+                },
+            },
+        }
     },
 
-    toolbar: {
-        minHeight: 128,
-        alignItems: 'flex-start',
-        paddingTop: theme.spacing(5),
-        paddingBottom: theme.spacing(7),
-        marginTop:theme.spacing(8)
-    },
+
 
 }));
