@@ -9,7 +9,7 @@ import { renderRoutes } from 'react-router-config';
 
 import theme from './theme';
 import { configureStore } from './store';
-import routes from './Rtoutes';
+import routes from './Routes';
 import {
   ScrollReset,
   GoogleAnalytics,
