@@ -3,9 +3,11 @@ import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { LinearProgress } from '@material-ui/core';
+import FreeScrollBar from 'react-free-scrollbar';
+
 
 import { NavBar, TopBar, ChatBar } from './components';
-
+import "App.css";
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%',
@@ -50,25 +52,30 @@ const Dashboard = props => {
   };
 
   return (
+
     <div className={classes.root}>
       <TopBar
         className={classes.topBar}
         onOpenNavBarMobile={handleNavBarMobileOpen}
       />
       <div className={classes.container}>
+
         <NavBar
           className={classes.navBar}
           onMobileClose={handleNavBarMobileClose}
           openMobile={openNavBarMobile}
         />
         <main className={classes.content}>
+          <FreeScrollBar autohide={true} className="ScrollBar">
           <Suspense fallback={<LinearProgress />}>
             {renderRoutes(route.routes)}
           </Suspense>
+          </FreeScrollBar>
         </main>
       </div>
       <ChatBar />
     </div>
+
   );
 };
 

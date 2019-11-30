@@ -6,11 +6,12 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Drawer, Divider, Paper, Avatar, Typography } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
+import FreeScrollBar from 'react-free-scrollbar';
 
 import useRouter from 'utils/useRouter';
 import { Navigation } from 'components';
 import navigationConfig from './navigationConfig';
-
+import "App.css";
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
@@ -44,6 +45,8 @@ const NavBar = props => {
   const { openMobile, onMobileClose, className, ...rest } = props;
 
   const classes = useStyles();
+
+
   const router = useRouter();
   const session = useSelector(state => state.session);
 
@@ -56,6 +59,7 @@ const NavBar = props => {
   }, [router.location.pathname]);
 
   const navbarContent = (
+    <FreeScrollBar autohide={true} fixed={true} className="ScrollBar" >
     <div className={classes.content}>
       <div className={classes.profile}>
         <Avatar
@@ -85,6 +89,7 @@ const NavBar = props => {
         ))}
       </nav>
     </div>
+    </FreeScrollBar>
   );
 
   return (

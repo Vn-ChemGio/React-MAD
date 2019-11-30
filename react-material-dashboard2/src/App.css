@@ -1,0 +1,29 @@
+.ScrollBar {}
+.ScrollBar-vertical-track {
+    margin-top:150px;
+    margin-bottom: 50px;
+    background-color: transparent;
+    width: 4px;
+    transition: opacity 0.3s;
+}
+.ScrollBar-horizontal-track {
+    margin-left:150px;
+    margin-right: 150px;
+    background-color: transparent;
+    width: 4px;
+    transition: opacity 0.3s;
+}
+.ScrollBar-vertical-handler {
+    width: 5px;
+    right: 1px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s;
+}
+.ScrollBar-horizontal-handler {
+    width: 5px;
+    bottom: 1px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s;
+}
